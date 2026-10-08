@@ -1,0 +1,65 @@
+// Copyright (c) 2023-2025 AccelByte Inc. All Rights Reserved.
+// This is licensed software from AccelByte Inc, for limitations
+// and restrictions contact your company contract manager.
+
+syntax = "proto3";
+
+option csharp_namespace = "AccelByte.Session.SessionDsm";
+option go_package = "accelbyte.net/session/sessiondsm";
+option java_multiple_files = true;
+option java_package = "net.accelbyte.session.sessiondsm";
+
+package accelbyte.session.sessiondsm;
+// Version v1.0.0
+
+service SessionDsm{
+  rpc CreateGameSession(RequestCreateGameSession) returns (ResponseCreateGameSession);
+  rpc TerminateGameSession(RequestTerminateGameSession) returns (ResponseTerminateGameSession);
+  rpc CreateGameSessionAsync(RequestCreateGameSession) returns (ResponseCreateGameSessionAsync);
+}
+
+message RequestTerminateGameSession{
+  string  session_id = 1;
+  string  namespace = 2;
+  string  zone = 3;
+}
+
+message ResponseTerminateGameSession{
+  string  session_id = 1;
+  string  namespace = 2;
+  bool success = 3;
+  string reason = 4;
+}
+
+message RequestCreateGameSession{
+  string  session_id = 1;
+  string  namespace = 2;
+  string  deployment = 3;
+  string  session_data = 4;
+  repeated string  requested_region = 5;
+  int64   maximum_player = 6;
+  string  client_version = 7;
+  string  game_mode = 8;
+  string  secret = 9;
+}
+
+message ResponseCreateGameSession{
+  string  session_id = 1;
+  string  namespace = 2;
+  string  session_data = 3;
+  string  status = 4;
+  string  ip = 5;
+  int64   port = 6;
+  string  server_id = 7;
+  string  source = 8;
+  string  deployment = 9;
+  string  region = 10;
+  string  client_version = 11;
+  string  game_mode = 12;
+  string  created_region =13;
+}
+
+message ResponseCreateGameSessionAsync{
+  bool success = 1;
+  string message = 2;
+}

@@ -1,0 +1,30 @@
+services:
+  app:
+    build: .
+    ports:
+      - "6565:6565"
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - AB_CLIENT_ID=${AB_CLIENT_ID}
+      - AB_CLIENT_SECRET=${AB_CLIENT_SECRET}
+      - AB_BASE_URL=${AB_BASE_URL}
+      - AB_NAMESPACE=${AB_NAMESPACE}
+      - PLUGIN_GRPC_SERVER_AUTH_ENABLED
+      - PLAYERHOSTED_REG_PORT
+      - PLAYERHOSTED_REG_TIMEOUT
+      - PLAYERHOSTED_HEARTBEAT_TIMEOUT
+      - PLAYERHOSTED_HEARTBEAT_INTERVAL
+      - PLAYERHOSTED_REACHABILITY_TIMEOUT
+      - PLAYERHOSTED_HOSTLESS_SESSION_TIMEOUT
+      - PLAYERHOSTED_EMPTY_SESSION_TIMEOUT
+      - OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://host.docker.internal:9411/api/v2/spans # Zipkin
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    # logging:
+    #   driver: loki
+    #   options:
+    #     loki-url: http://localhost:3100/loki/api/v1/push
+    #     mode: non-blocking
+    #     max-buffer-size: 4m
+    #     loki-retries: "3"
